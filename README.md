@@ -1,28 +1,44 @@
-# File Organizer
+# 📁 File Organizer
 
-[![Python](https://img.shields.io/badge/Python-3.7%2B-blue)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![PyPI version](https://img.shields.io/pypi/v/file-organizer-cli.svg)](https://pypi.org/project/file-organizer-cli/)
-[![Tests](https://github.com/StencilwashCoder/file-organizer/workflows/Tests/badge.svg)](https://github.com/StencilwashCoder/file-organizer/actions)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.7%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat-square" alt="License">
+  <img src="https://img.shields.io/pypi/v/file-organizer-cli.svg?style=flat-square&color=blue" alt="PyPI">
+  <img src="https://github.com/StencilwashCoder/file-organizer/workflows/CI/badge.svg?style=flat-square" alt="CI">
+  <img src="https://img.shields.io/codecov/c/github/stencilwashcoder/file-organizer?style=flat-square" alt="Coverage">
+</p>
 
-A powerful, yet simple CLI tool to automatically organize your files. Clean up your Downloads folder, Desktop, or any messy directory in seconds!
+<p align="center">
+  <b>A powerful, yet simple CLI tool to automatically organize your files.</b><br>
+  Clean up your Downloads folder, Desktop, or any messy directory in seconds!
+</p>
+
+---
 
 ## ✨ Features
 
-- 📁 **Smart Organization** - Sort files by type, date, or size
-- 🗂️ **Category Detection** - Automatically categorizes files (Images, Documents, Videos, etc.)
-- 🔒 **Safe Operations** - Dry-run mode to preview changes before executing
-- 🔄 **Undo Support** - Made a mistake? Undo your last organization
-- ⚡ **Fast & Efficient** - Handles thousands of files in seconds
-- 🎯 **Custom Rules** - Define your own organization rules with YAML config
+| Feature | Description |
+|---------|-------------|
+| 📁 **Smart Organization** | Sort files by type, date, size, or custom rules |
+| 🗂️ **Category Detection** | Automatically categorizes files (Images, Documents, Videos, etc.) |
+| 🔒 **Safe Operations** | Dry-run mode to preview changes before executing |
+| 🔄 **Undo Support** | Made a mistake? Undo your last organization |
+| ⚡ **Fast & Efficient** | Handles thousands of files in seconds |
+| 🎯 **Custom Rules** | Define your own organization rules with YAML config |
+| 📊 **Progress Tracking** | Visual progress bar for large operations |
+| 🔍 **Duplicate Detection** | Find and handle duplicate files |
 
 ## 🚀 Installation
 
-```bash
-# Install from PyPI (when published)
-pip install file-organizer-cli
+### From PyPI (Recommended)
 
-# Or install from source
+```bash
+pip install file-organizer-cli
+```
+
+### From Source
+
+```bash
 git clone https://github.com/StencilwashCoder/file-organizer.git
 cd file-organizer
 pip install -e .
@@ -45,21 +61,25 @@ file-organizer organize ~/Desktop --dry-run
 
 # Undo last organization
 file-organizer undo
+
+# Show help
+file-organizer --help
 ```
 
 ## 📂 Default Categories
 
-| Category | Extensions |
-|----------|------------|
-| 📸 Images | .jpg, .jpeg, .png, .gif, .bmp, .svg, .webp |
-| 🎬 Videos | .mp4, .avi, .mkv, .mov, .wmv, .flv |
-| 🎵 Audio | .mp3, .wav, .flac, .aac, .ogg, .m4a |
-| 📄 Documents | .pdf, .doc, .docx, .txt, .rtf, .odt |
-| 📊 Spreadsheets | .xls, .xlsx, .csv, .ods |
-| 📈 Presentations | .ppt, .pptx, .odp, .key |
-| 📦 Archives | .zip, .rar, .7z, .tar, .gz, .bz2 |
-| 💻 Code | .py, .js, .html, .css, .java, .cpp, .c |
-| 🎮 Executables | .exe, .msi, .dmg, .pkg, .appimage |
+| Category | Extensions | Icon |
+|----------|------------|------|
+| 📸 Images | .jpg, .jpeg, .png, .gif, .bmp, .svg, .webp, .ico | 🖼️ |
+| 🎬 Videos | .mp4, .avi, .mkv, .mov, .wmv, .flv, .webm | 🎥 |
+| 🎵 Audio | .mp3, .wav, .flac, .aac, .ogg, .m4a, .wma | 🎧 |
+| 📄 Documents | .pdf, .doc, .docx, .txt, .rtf, .odt, .md | 📄 |
+| 📊 Spreadsheets | .xls, .xlsx, .csv, .ods | 📈 |
+| 📈 Presentations | .ppt, .pptx, .odp, .key | 🎯 |
+| 📦 Archives | .zip, .rar, .7z, .tar, .gz, .bz2, .xz | 📦 |
+| 💻 Code | .py, .js, .ts, .html, .css, .java, .cpp, .c, .go, .rs | 💾 |
+| 🎮 Executables | .exe, .msi, .dmg, .pkg, .appimage, .deb, .rpm | ⚙️ |
+| 🎨 Design | .psd, .ai, .sketch, .fig, .xd | 🎨 |
 
 ## 🔧 Configuration
 
@@ -77,60 +97,75 @@ categories:
     - .mp4
     - .mp3
 
-# Exclude patterns
+# Exclude patterns (regex supported)
 exclude:
-  - "*.tmp"
-  - "*.log"
-  - ".git"
-  - "node_modules"
+  - "^\\."           # Hidden files
+  - "node_modules"   # Node modules
+  - "__pycache__"    # Python cache
 
-# Destination paths
-destinations:
-  Images: ~/Pictures/Organized
-  Documents: ~/Documents/Organized
-  Videos: ~/Videos/Organized
+# Organization options
+options:
+  create_date_folders: true    # Create YYYY/MM folders for date organization
+  remove_empty_folders: true   # Clean up empty directories after move
+  duplicates_action: ask       # ask | skip | move | delete
 ```
 
-## 🖥️ Usage Examples
+## 🛠️ Advanced Usage
 
-### Basic Organization
 ```bash
-# Organize Downloads folder
-file-organizer organize ~/Downloads
+# Organize by file size (small/medium/large)
+file-organizer organize ~/Downloads --by-size
 
-# Output:
-# 📁 Organizing /home/user/Downloads...
-# ✅ Moved 15 files to Images/
-# ✅ Moved 8 files to Documents/
-# ✅ Moved 3 files to Archives/
-# 🎉 Organization complete! 26 files organized.
+# Custom output directory
+file-organizer organize ~/Messy --output ~/Organized
+
+# Include hidden files
+file-organizer organize ~/Project --include-hidden
+
+# Flatten directory structure
+file-organizer organize ~/Nested --flatten
+
+# Find duplicates only
+file-organizer duplicates ~/Photos
 ```
 
-### Organize by Date
-```bash
-file-organizer organize ~/Pictures --by-date
-# Creates folders like: 2024/01, 2024/02, etc.
-```
+## 🧪 Testing
 
-### Dry Run (Preview)
 ```bash
-file-organizer organize ~/Desktop --dry-run
-# Shows what would happen without moving files
+# Run tests
+pytest
+
+# Run with coverage
+pytest --cov=organizer --cov-report=html
+
+# Run specific test
+pytest tests/test_organizer.py::test_basic_organization -v
 ```
 
 ## 🤝 Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Run tests (`pytest`)
+4. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+5. Push to the branch (`git push origin feature/AmazingFeature`)
+6. Open a Pull Request
 
-MIT License - see [LICENSE](LICENSE) file.
+Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
 - Inspired by the need to clean up messy Downloads folders everywhere
-- Built with ❤️ by [StencilwashCoder](https://github.com/StencilwashCoder)
+- Built with ❤️ by [Stencilwashcoder](https://github.com/stencilwashcoder)
 
 ---
 
-💡 **Pro Tip**: Add `file-organizer organize ~/Downloads` to your crontab for automatic cleanup!
+<p align="center">
+  <sub>⭐ Star this repo if it helped you clean up your digital mess! ⭐</sub>
+</p>
